@@ -73,14 +73,16 @@ export default class MessageDao implements MessageDaoI {
     /**
      * Uses message model to send a message from one user to another.
      * @param uid the user id of the user
+     * @param anotherUid the user id of the user who receives the message
      * @param message the message that needs to be sent
      * @returns Promise to be notified with the message that was sent
      */
-    userSendsAMessageToAnotherUser = async (uid: string, message: Message): Promise<any> =>
+    userSendsAMessageToAnotherUser = async (uid: string, anotherUid: string, message: Message): Promise<any> =>
         await MessageModel
             .create({
                 ...message,
-                from: uid
+                from: uid,
+                to: anotherUid
             })
             .then(messages => messages)
             .catch(error => error);
