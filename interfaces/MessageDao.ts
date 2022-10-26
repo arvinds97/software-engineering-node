@@ -1,0 +1,9 @@
+import MessageI from "../models/messages/MessageI";
+import Message from "../models/messages/Message";
+
+export default interface MessageDaoI {
+    findAllMessagesSentByUser(uid: string): Promise<MessageI[]>;
+    findAllMessagesSentToUser(uid: string): Promise<MessageI[]>;
+    deleteMessageSentToUser(uid: string, mid: string): Promise<any>;
+    userSendsAMessageToAnotherUser(mid: string, message: Message): Promise<any>;
+}

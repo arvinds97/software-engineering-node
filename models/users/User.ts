@@ -1,7 +1,8 @@
-import AccountType from "./AccountType";
-import MaritalStatus from "./MaritalStatus";
-import Location from "./Location";
-export default class User {
+import AccountType from "../AccountType";
+import MaritalStatus from "../MaritalStatus";
+import Location from "../Location";
+import UserI from "./UserI";
+export default class User implements UserI {
     id: string;
     username: string = '';
     password: string = '';

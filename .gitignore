@@ -4,3 +4,6 @@ build
 data
 out
 coverage
+npm-debug.log
+.DS_Store
+/*.env
