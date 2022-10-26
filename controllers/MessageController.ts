@@ -10,7 +10,7 @@ import MessageI from "../models/messages/MessageI";
  * resource.
  * Defines the following HTTP endpoints:
  * <ul>
- *     <li>POST /api/users/:uid/messages to send a message</li>
+ *     <li>POST /api/users/:uid/messages/:anotherUid to send a message</li>
  *     <li>GET /api/users/:uid/messagesSent to retrieve all the messages sent by a user</li>
  *     <li>GET /api/users/:uid/messagesReceived to retrieve all the messages sent to the user</li>
  *     <li>DELETE /api/users/:uid/messages/:mid to remove a particular message instance</li>
