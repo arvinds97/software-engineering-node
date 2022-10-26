@@ -64,7 +64,7 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesSentToUser = async (uid: string): Promise<MessageI[]> =>
         await MessageModel
-            .find({from: uid})
+            .find({to: uid})
             .populate("message")
             .exec()
             .then(messages => messages)
