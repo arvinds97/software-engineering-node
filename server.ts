@@ -36,7 +36,7 @@ const options = {
     socketTimeoutMS: 45000,
     family: 4
 }
-mongoose.connect('mongodb://localhost:27017/tuiter', options);
+mongoose.connect("mongodb+srv://arv:K2ozI23m1wdhcmLR@cluster0.debeks5.mongodb.net/?retryWrites=true&w=majority", options);
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
 
