@@ -70,7 +70,7 @@ export default class MessageController implements MessageControllerI {
      */
     findAllMessagesSentToUser = (req: Request, res:Response) =>
         MessageController.messageDao.findAllMessagesSentToUser(req.params.uid)
-            .then((messages: MessageI[]) => res.json(messages));
+            .then(messages => res.json(messages));
 
     /**
      * @param {Request} req Represents request from client, including body
