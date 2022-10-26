@@ -34,7 +34,9 @@ export default class LikeDao implements LikeDaoI {
         LikeModel
             .find({tuit: tid})
             .populate("likedBy")
-            .exec();
+            .exec()
+            .then(likes => likes)
+            .catch(error => error);
 
     /**
      * Uses Like model to find all the tuits that are liked by a user.
@@ -45,7 +47,9 @@ export default class LikeDao implements LikeDaoI {
         LikeModel
             .find({likedBy: uid})
             .populate("tuit")
-            .exec();
+            .exec()
+            .then(likes => likes)
+            .catch(error => error);
 
     /**
      * Uses Like model to like a tuit.
@@ -54,7 +58,9 @@ export default class LikeDao implements LikeDaoI {
      * @returns Promise to be notified with the liked tuit
      */
     userLikesTuit = async (uid: string, tid: string): Promise<any> =>
-        LikeModel.create({tuit: tid, likedBy: uid});
+        LikeModel.create({tuit: tid, likedBy: uid})
+            .then(likes => likes)
+            .catch(error => error);
 
     /**
      * Uses Like model to unlike a tuit.
@@ -63,5 +69,7 @@ export default class LikeDao implements LikeDaoI {
      * @returns Promise to be notified with the unliked tuit.
      */
     userUnlikesTuit = async (uid: string, tid: string): Promise<any> =>
-        LikeModel.deleteOne({tuit: tid, likedBy: uid});
+        LikeModel.deleteOne({tuit: tid, likedBy: uid})
+            .then(likes => likes)
+            .catch(error => error);
 }

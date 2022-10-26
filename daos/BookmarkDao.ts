@@ -37,7 +37,9 @@ export default class BookmarkDao implements BookmarkDaoI {
         await BookmarkModel
             .find({tuit: tid})
             .populate("bookmarkedBy")
-            .exec();
+            .exec()
+            .then(bookmarks => bookmarks)
+            .catch(error => error);
 
     /**
      * Uses Bookmark model to find all the tuits bookmarked by a user.
@@ -48,7 +50,9 @@ export default class BookmarkDao implements BookmarkDaoI {
         await BookmarkModel
             .find({bookmarkedBy: uid})
             .populate("tuit")
-            .exec();
+            .exec()
+            .then(bookmarks => bookmarks)
+            .catch(error => error);
 
     /**
      * Uses Bookmark model to bookmark a tuit
@@ -57,7 +61,9 @@ export default class BookmarkDao implements BookmarkDaoI {
      * @returns Promise to be notified with the bookmark
      */
     userBookmarksTuit = async (uid: string, tid: string): Promise<any> =>
-        await BookmarkModel.create({tuit : tid, bookmarkedBy: uid});
+        await BookmarkModel.create({tuit : tid, bookmarkedBy: uid})
+            .then(bookmarks => bookmarks)
+            .catch(error => error);
 
     /**
      * Uses Bookmark model to un-bookmark a tuit
@@ -65,7 +71,9 @@ export default class BookmarkDao implements BookmarkDaoI {
      * @param tid the id of the tuit
      */
     userUnBookmarksTuit = async (uid: string, tid: string): Promise<any> =>
-        await LikeModel.deleteOne({tuit: tid, bookmarkedBy: uid});
+        await LikeModel.deleteOne({tuit: tid, bookmarkedBy: uid})
+            .then(bookmarks => bookmarks)
+            .catch(error => error);
 
 }
 

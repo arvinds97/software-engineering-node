@@ -32,7 +32,9 @@ export default class TuitDao implements TuitDaoI {
     findAllTuits = async (): Promise<Tuit[]> =>
         TuitModel.find()
             .populate("postedBy")
-            .exec();
+            .exec()
+            .then(tuits => tuits)
+            .catch(error => error);
     /**
      * Uses Tuit model to retrieve all the tuits by the user.
      * @returns a Promise to be notified with all the tuits by the user.
@@ -41,7 +43,9 @@ export default class TuitDao implements TuitDaoI {
     findAllTuitsByUser = async (uid: string): Promise<Tuit[]> =>
         TuitModel.find({postedBy: uid})
             .populate("postedBy")
-            .exec();
+            .exec()
+            .then(tuits => tuits)
+            .catch(error => error);
 
     /**
      * Uses Tuit model to retrieve a tuit by user id.
@@ -51,7 +55,9 @@ export default class TuitDao implements TuitDaoI {
     findTuitById = async (uid: string): Promise<any> =>
         TuitModel.findById(uid)
             .populate("postedBy")
-            .exec();
+            .exec()
+            .then(tuits => tuits)
+            .catch(error => error);
 
     /**
      * Uses Tuit model to create a tuit.
@@ -60,7 +66,9 @@ export default class TuitDao implements TuitDaoI {
      * @returns a Promise that notifies that the tuit has been created
      */
     createTuitByUser = async (uid: string, tuit: Tuit): Promise<Tuit> =>
-        TuitModel.create({...tuit, postedBy: uid});
+        TuitModel.create({...tuit, postedBy: uid})
+            .then(tuits => tuits)
+            .catch(error => error);
 
     /**
      * Uses Tuit model to update a tuit.
@@ -70,12 +78,16 @@ export default class TuitDao implements TuitDaoI {
     updateTuit = async (uid: string, tuit: Tuit): Promise<any> =>
         TuitModel.updateOne(
             {_id: uid},
-            {$set: tuit});
+            {$set: tuit})
+            .then(tuits => tuits)
+            .catch(error => error);
 
     /**
      * Uses tuit model to delete a tuit.
      * @param uid the user id of the user
      */
     deleteTuit = async (uid: string): Promise<any> =>
-        TuitModel.deleteOne({_id: uid});
+        TuitModel.deleteOne({_id: uid})
+            .then(tuits => tuits)
+            .catch(error => error);
 }

@@ -40,7 +40,9 @@ export default class MessageDao implements MessageDaoI {
                     to: uid,
                     _id: mid
                 }
-            );
+            )
+            .then(messages => messages)
+            .catch(error => error);
 
     /**
      * Uses Message Model to view all the messages sent by a user.
@@ -51,7 +53,9 @@ export default class MessageDao implements MessageDaoI {
         await MessageModel
             .find({from: uid})
             .populate("message")
-            .exec();
+            .exec()
+            .then(messages => messages)
+            .catch(error => error);
 
     /**
      * Uses Message model to view all the messages sent to a user.
@@ -62,7 +66,9 @@ export default class MessageDao implements MessageDaoI {
         await MessageModel
             .find({from: uid})
             .populate("message")
-            .exec();
+            .exec()
+            .then(messages => messages)
+            .catch(error => error);
 
     /**
      * Uses message model to send a message from one user to another.
@@ -75,6 +81,8 @@ export default class MessageDao implements MessageDaoI {
             .create({
                 ...message,
                 from: uid
-            });
+            })
+            .then(messages => messages)
+            .catch(error => error);
 
 }

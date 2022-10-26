@@ -33,7 +33,9 @@ export default class UserDao implements UserDaoI {
      * database
      */
     findAllUsers = async (): Promise<User[]> =>
-        UserModel.find().exec();
+        UserModel.find().exec()
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Uses UserModel to retrieve single user document from users collection
@@ -41,7 +43,9 @@ export default class UserDao implements UserDaoI {
      * @returns Promise To be notified when user is retrieved from the database
      */
     findUserById = async (uid: string): Promise<any> =>
-        UserModel.findById(uid);
+        UserModel.findById(uid)
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Inserts user instance into the database
@@ -49,7 +53,9 @@ export default class UserDao implements UserDaoI {
      * @returns Promise To be notified when user is inserted into the database
      */
     createUser = async (user: User): Promise<User> =>
-        UserModel.create(user);
+        UserModel.create(user)
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Updates user with new values in database
@@ -60,7 +66,9 @@ export default class UserDao implements UserDaoI {
     updateUser = async (uid: string, user: User): Promise<any> =>
         UserModel.updateOne(
             {_id: uid},
-            {$set: user});
+            {$set: user})
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Removes user from the database.
@@ -68,7 +76,9 @@ export default class UserDao implements UserDaoI {
      * @returns Promise To be notified when user is removed from the database
      */
     deleteUser = async (uid: string): Promise<any> =>
-        UserModel.deleteOne({_id: uid});
+        UserModel.deleteOne({_id: uid})
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Removes all users from the database. Useful for testing
@@ -76,7 +86,9 @@ export default class UserDao implements UserDaoI {
      * database
      */
     deleteAllUsers = async (): Promise<any> =>
-        UserModel.deleteMany({});
+        UserModel.deleteMany({})
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Removes users by their username
@@ -84,7 +96,9 @@ export default class UserDao implements UserDaoI {
      * @returns Promise to be notified when the specified user is removed from the database
      */
     deleteUsersByUsername = async (username: string): Promise<any> =>
-        UserModel.deleteMany({username});
+        UserModel.deleteMany({username})
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Finds user by their credentials
@@ -92,12 +106,16 @@ export default class UserDao implements UserDaoI {
      * @param password the password of the user
      */
     findUserByCredentials = async (username: string, password: string): Promise<any> =>
-        UserModel.findOne({username: username, password: password});
+        UserModel.findOne({username: username, password: password})
+            .then(users => users)
+            .catch(error => error);
 
     /**
      * Finds the user by their username
      * @param username the username of the user
      */
     findUserByUsername = async (username: string): Promise<any> =>
-        UserModel.findOne({username});
+        UserModel.findOne({username})
+            .then(users => users)
+            .catch(error => error);
 };
