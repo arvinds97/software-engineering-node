@@ -49,7 +49,7 @@ export default class MessageController implements MessageControllerI {
      */
     deleteMessageSentToUser = (req: Request, res:Response) =>
         MessageController.messageDao.deleteMessageSentToUser(req.params.uid, req.params.mid)
-            .then(messages => res.json(messages));
+            .then(status => res.send(status));
     /**
      * Retrieves all messages sent by a user from the database and returns the messages
      * @param req {Request} Represents request from client

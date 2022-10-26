@@ -37,7 +37,6 @@ export default class MessageDao implements MessageDaoI {
         await MessageModel
             .deleteOne(
                 {
-                    to: uid,
                     _id: mid
                 }
             )
