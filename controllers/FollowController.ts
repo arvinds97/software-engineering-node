@@ -13,7 +13,7 @@ import {Express, Request, Response} from "express";
  *     <li>POST /api/users/:uid/follow/:anotherUid to create a follow relationship</li>
  *     <li>GET /api/users/:uid/followers to retrieve all the followers of the user</li>
  *     <li>GET /api/users/:uid/following to retrieve all the other users whom the user is following</li>
- *     <li>DELETE /api/users/:uid/follow/:anotherUid to remove a particular follow instance</li>
+ *     <li>DELETE /api/follow/:fid to remove a particular follow instance</li>
  * </ul>
  * @property {FollowDao} followDao Singleton DAO implementing message CRUD operations
  * @property {FollowController} followController Singleton controller implementing
