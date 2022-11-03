@@ -13,9 +13,7 @@
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
  * service
  */
-import UserDao from "./daos/UserDao";
 import UserController from "./controllers/UserController";
-import TuitDao from "./daos/TuitDao";
 import TuitController from "./controllers/TuitController";
 import express, {Request, Response} from 'express';
 import mongoose = require("mongoose");
