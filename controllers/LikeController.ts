@@ -7,6 +7,8 @@ import LikeControllerI from "../interfaces/LikeControllerI";
 import TuitController from "./TuitController";
 import TuitDao from "../daos/TuitDao";
 import Like from "../models/likes/Like";
+import DislikeDao from "../daos/DislikeDao";
+import DislikeController from "./DislikesController";
 
 /**
  * @class LikeController Implements RESTful Web service API for likes resource.
@@ -129,6 +131,9 @@ export default class LikeController implements LikeControllerI {
                 console.log("Before line 117")
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
+                //update change for dislikes
+                await DislikeDao.getInstance().userUnDislikesTuit(userId, tid);
+                tuit.stats.dislikes = await DislikeDao.getInstance().countHowManyDislikedTuit(tid);
             };
             console.log("Before line 121")
             await TuitDao.getInstance().updateLikes(tid, tuit.stats);

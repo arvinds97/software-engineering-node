@@ -5,7 +5,8 @@ import {Express, Request, Response} from "express";
 import DislikeDao from "../daos/DislikeDao";
 import DislikeControllerI from "../interfaces/DislikeControllerI";
 import TuitDao from "../daos/TuitDao";
-
+import LikeController from "./LikeController";
+import LikeDao from "../daos/LikeDao";
 /**
  * @class LikeController Implements RESTful Web service API for dislikes resource.
  * Defines the following HTTP endpoints:
@@ -110,6 +111,9 @@ export default class DislikeController implements DislikeControllerI {
             } else {
                 await DislikeController.dislikeDao.userDislikesTuit(userId, tid);
                 tuit.stats.dislikes = howManyDislikedTuit + 1;
+                //modifyChangeForLikes
+                await LikeDao.getInstance().userUnlikesTuit(userId, tid);
+                tuit.stats.likes = await LikeDao.getInstance().countHowManyLikedTuit(tid);
             }
             await DislikeController.tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
