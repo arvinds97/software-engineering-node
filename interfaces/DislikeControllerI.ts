@@ -1,36 +1,43 @@
-import Dislike from "../models/dislikes/Dislike";
-
 /**
- * @file Declares API for Un-Likes related data access object methods
+ * @file Declares RESTful Web service API for dislike resource
  */
-export default interface DislikeDaoI {
+import {Request, Response} from "express";
+
+export default interface DislikeControllerI {
     /**
-     * Retrieves all users that un-liked a tuit.
-     * @param {string} tid Tuit for which users who have un-liked this tuit.
-     * @returns Promise To be notified when the users who have un-liked the tuit are retrieved from the database.
+     * Retrieves all users that disliked a tuit from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter tid representing the disliked tuit
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the user objects
      */
-    findAllUsersThatDislikedTuit (tid: string): Promise<Dislike[]>;
+    findAllUsersThatDislikedTuit (req: Request, res: Response): void;
 
     /**
-     * Retrieves all tuits un-liked by a user.
-     * @param {string} uid User for whom their un-liked tuits are to be retrieved.
-     * @returns Promise To be notified when the un-liked tuits are retrieved from the database.
+     * Retrieves all tuits disliked by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user disliked the tuits
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit objects that were disliked
      */
-    findAllTuitsDislikedByUser (uid: string): Promise<Dislike[]>;
+    findAllTuitsDislikedByUser (req: Request, res: Response): void;
 
     /**
-     * Removes a like instance from the database.
-     * @param {string} uid User who wishes to unlike a tuit.
-     * @param {string} tid Tuit that is unliked.
-     * @returns Promise To be notified when a like instance in removed from the database.
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid and tid representing the user that is disliking the tuit
+     * and the tuit being liked
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON containing the new dislikes that was inserted in the
+     * database
      */
-    userUnDislikesTuit (tid: string, uid: string): Promise<any>;
+    userDislikesTuit (req: Request, res: Response): void;
 
     /**
-     * Inserts a like instance into the database.
-     * @param {string} uid User who wishes to like a tuit.
-     * @param {string} tid Tuit that is un-liked.
-     * @returns Promise To be notified when a like instance in inserted into the database.
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid and tid representing the user that is disliking
+     * the tuit and the tuit being disliked
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting the dislike was successful or not
      */
-    userDislikesTuit (tid: string, uid: string): Promise<Dislike>;
+    userUnDislikesTuit (req: Request, res: Response): void;
 };
