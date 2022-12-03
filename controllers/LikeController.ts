@@ -4,7 +4,6 @@
 import {Express, Request, Response} from "express";
 import LikeDao from "../daos/LikeDao";
 import LikeControllerI from "../interfaces/LikeControllerI";
-import TuitController from "./TuitController";
 import TuitDao from "../daos/TuitDao";
 import Like from "../models/likes/Like";
 
@@ -115,22 +114,16 @@ export default class LikeController implements LikeControllerI {
         const userId = uid === "me" && profile ?
             profile._id : uid;
         try {
-            console.log("Before line 106")
             const userAlreadyLikedTuit = await LikeController.likeDao.findUserLikesTuit(userId, tid);
-            console.log("Before line 108")
             const howManyLikedTuit = await LikeController.likeDao.countHowManyLikedTuit(tid);
             let tuit = await TuitDao.getInstance().findTuitById(tid);
-            console.log("Before line 111")
             if (userAlreadyLikedTuit) {
-                console.log("Before line 113")
                 await LikeController.likeDao.userUnlikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit - 1;
             } else {
-                console.log("Before line 117")
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
             };
-            console.log("Before line 121")
             await TuitDao.getInstance().updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {
