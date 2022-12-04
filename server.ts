@@ -23,6 +23,7 @@ import MessageController from "./controllers/MessageController";
 import FollowController from "./controllers/FollowController";
 import User from "./models/users/User";
 import AuthController from "./controllers/auth-controller";
+import DislikeController from "./controllers/DislikesController";
 const cors = require('cors')
 const corsConfig = {
     credentials: true,
@@ -70,7 +71,7 @@ const bookmarksController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const authController = AuthController.getInstance(app);
-
+const dislikesController = DislikeController.getInstance(app);
 /**
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on Heroku if available.
