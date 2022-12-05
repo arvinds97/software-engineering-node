@@ -25,13 +25,13 @@ import User from "./models/users/User";
 import AuthController from "./controllers/auth-controller";
 import DislikeController from "./controllers/DislikesController";
 const cors = require('cors')
-const corsConfig = {
+/*const corsConfig = {
     credentials: true,
     origin: true
-};
+};*/
 const session = require("express-session");
 const app = express();
-app.use(cors({ origin: 'https://intregration--fse5500arvind.netlify.app', credentials: true }));
+/*app.use(cors({ origin: 'https://intregration--fse5500arvind.netlify.app', credentials: true }));*/
 app.use(express.json());
 const options = {
     useNewUrlParser: true,
@@ -43,7 +43,7 @@ const options = {
     family: 4
 }
 
-let sess = {
+/*let sess = {
     secret: "SECRET",
     cookie: {
         secure: false
@@ -53,7 +53,26 @@ let sess = {
 if (process.env.ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
+}*/
+
+let sess = {
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        sameSite: process.env.ENV === "PRODUCTION" ? 'none' : 'lax',
+        secure: process.env.ENV === "PRODUCTION"
+    }
 }
+
+if (process.env.ENV === 'PRODUCTION') {
+    app.set('trust proxy', 1)
+    sess.cookie.secure = true
+}
+
+app.use(express.json());
+app.use(cors({credentials: true, origin: true}));
+app.use(session(sess));
 
 mongoose.connect("mongodb+srv://arv:K2ozI23m1wdhcmLR@cluster0.debeks5.mongodb.net/?retryWrites=true&w=majority", options);
 
