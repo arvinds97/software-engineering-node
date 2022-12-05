@@ -31,7 +31,7 @@ const corsConfig = {
 };
 const session = require("express-session");
 const app = express();
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://intregration--fse5500arvind.netlify.app', credentials: true }));
 app.use(express.json());
 const options = {
     useNewUrlParser: true,
