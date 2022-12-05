@@ -27,7 +27,7 @@ import DislikeController from "./controllers/DislikesController";
 const cors = require('cors')
 const corsConfig = {
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: true
 };
 const session = require("express-session");
 const app = express();
