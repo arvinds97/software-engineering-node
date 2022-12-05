@@ -54,30 +54,37 @@ export default class AuthenticationController implements AuthenticationControlle
     }
 
     logout = (req: any, res: any) => {
+        console.log("Within logout")
         req.session.destroy();
         res.sendStatus(200);
     }
 
     login = async (req: any, res: any) => {
-        const user = req.body;
-        const username = user.username;
-        const password = user.password;
-        const existingUser = await AuthenticationController.userDao.findUserByUsername(username);
-        if (!existingUser) {
-            console.log("Before line 68")
-            res.sendStatus(403);
-            return;
+        try {
+            const user = req.body;
+            const username = user.username;
+            const password = user.password;
+            const existingUser = await AuthenticationController.userDao.findUserByUsername(username);
+            if (!existingUser) {
+                console.log("Before line 68")
+                res.sendStatus(403);
+                return;
+            }
+            console.log(password, existingUser.password, existingUser);
+            const match = await bcrypt.compare(password,   existingUser.password);
+            console.log(match)
+            if (match) {
+                existingUser.password = '*****';
+                req.session['profile'] = existingUser;
+                res.json(existingUser);
+            } else {
+                console.log("Before line 79")
+                res.sendStatus(403);
+            }
+        } catch (e) {
+            console.error(e);
+            res.sendStatus(500);
         }
-        console.log(password, existingUser.password);
-        const match = await bcrypt.compare(password,   existingUser.password);
-        console.log(match)
-        if (match) {
-            existingUser.password = '*****';
-            req.session['profile'] = existingUser;
-            res.json(existingUser);
-        } else {
-            console.log("Before line 79")
-            res.sendStatus(403);
-        }
+
     };
 }

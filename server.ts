@@ -27,7 +27,7 @@ import DislikeController from "./controllers/DislikesController";
 const cors = require('cors')
 const corsConfig = {
     credentials: true,
-    origin: true
+    origin: "http://localhost:3000"
 };
 const session = require("express-session");
 const app = express();
@@ -54,6 +54,8 @@ if (process.env.ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
+
+mongoose.connect("mongodb+srv://arv:K2ozI23m1wdhcmLR@cluster0.debeks5.mongodb.net/?retryWrites=true&w=majority", options);
 
 app.use(session(sess));
  app.get('/', (req: Request, res: Response) =>

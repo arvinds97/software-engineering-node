@@ -34,7 +34,7 @@ export default class TuitDao implements TuitDaoI {
             .populate("postedBy")
             .exec()
             .then(tuits => tuits)
-            .catch(error => error);
+            
     /**
      * Uses Tuit model to retrieve all the tuits by the user.
      * @returns a Promise to be notified with all the tuits by the user.
@@ -45,7 +45,7 @@ export default class TuitDao implements TuitDaoI {
             .populate("postedBy")
             .exec()
             .then(tuits => tuits)
-            .catch(error => error);
+            
 
     /**
      * Uses Tuit model to retrieve a tuit by user id.
@@ -57,7 +57,6 @@ export default class TuitDao implements TuitDaoI {
             .populate("postedBy")
             .exec()
             .then(tuits => tuits)
-            .catch(error => error);
 
     /**
      * Uses Tuit model to create a tuit.
@@ -68,7 +67,6 @@ export default class TuitDao implements TuitDaoI {
     createTuitByUser = async (uid: string, tuit: Tuit): Promise<Tuit> =>
         TuitModel.create({...tuit, postedBy: uid})
             .then(tuits => tuits)
-            .catch(error => error);
 
     /**
      * Uses Tuit model to update a tuit.
@@ -80,7 +78,6 @@ export default class TuitDao implements TuitDaoI {
             {_id: uid},
             {$set: tuit})
             .then(tuits => tuits)
-            .catch(error => error);
 
     /**
      * Uses tuit model to delete a tuit.
@@ -89,13 +86,11 @@ export default class TuitDao implements TuitDaoI {
     deleteTuit = async (tid: string): Promise<any> =>
         TuitModel.deleteOne({_id: tid})
             .then(tuits => tuits)
-            .catch(error => error);
 
 
     deleteTuitsByUid = async (uid: string): Promise<any> =>
         TuitModel.deleteMany({postedBy: uid})
             .then(tuits => tuits)
-            .catch(error => error);
 
     updateLikes =
         async (tid: string, newStats: string) =>

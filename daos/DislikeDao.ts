@@ -5,6 +5,7 @@
 import DislikeDaoI from "../interfaces/DislikeDaoI";
 import DislikeModel from "../mongoose/dislikes/DislikeModel";
 import Dislike from "../models/dislikes/Dislike";
+import TuitModel from "../mongoose/tuits/TuitModel";
 
 /**
  * @class DislikeDao Implements Data Access Object managing data storage
@@ -39,7 +40,6 @@ export default class DislikeDao implements DislikeDaoI {
 
             .populate("dislikedBy")
             .exec()
-            .catch(error => error);
 
     /**
      * Retrieves all tuits disliked by a user.
@@ -51,11 +51,12 @@ export default class DislikeDao implements DislikeDaoI {
             .find({dislikedBy: uid})
             .populate({
                 path: "tuit",
+                model: TuitModel,
                 populate: {
                     path: "postedBy"
                 }
             })
-            .exec().catch(e => e);
+            .exec()
 
     /**
      * Inserts a dislike instance into the database.
@@ -64,7 +65,7 @@ export default class DislikeDao implements DislikeDaoI {
      * @returns Promise To be notified when a dislike instance in inserted into the database.
      */
     userDislikesTuit = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.create({tuit: tid, dislikedBy: uid}).catch(e => e);
+        DislikeModel.create({tuit: tid, dislikedBy: uid})
 
     /**
      * Removes a like instance from the database.
@@ -73,13 +74,13 @@ export default class DislikeDao implements DislikeDaoI {
      * @returns Promise To be notified when a like instance in removed from the database.
      */
     userUnDislikesTuit = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.deleteOne({tuit: tid, dislikedBy: uid}).catch(e => e);
+        DislikeModel.deleteOne({tuit: tid, dislikedBy: uid})
 
     countHowManyDislikedTuit = async (tid: any) =>
-        DislikeModel.count({tuit: tid}).catch(e => e);
+        DislikeModel.count({tuit: tid})
 
     findUserDislikesTuit = async (uid: string, tid: string) =>
         DislikeModel.findOne(
-            {tuit: tid, dislikedBy: uid}).catch(e => e);
+            {tuit: tid, dislikedBy: uid})
 
 }
