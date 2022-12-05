@@ -56,9 +56,9 @@ if (process.env.ENV === 'PRODUCTION') {
 }
 
 app.use(session(sess));
-mongoose.connect("mongodb+srv://arv:K2ozI23m1wdhcmLR@cluster0.debeks5.mongodb.net/?retryWrites=true&w=majority", options);
-app.get('/', (req: Request, res: Response) =>
+ app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
+
 
 app.get('/add/:a/:b', (req: Request, res: Response) =>
     res.send(req.params.a + req.params.b));
