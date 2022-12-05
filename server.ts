@@ -31,7 +31,7 @@ const corsConfig = {
 };
 const session = require("express-session");
 const app = express();
-app.use(cors(corsConfig));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 const options = {
     useNewUrlParser: true,
